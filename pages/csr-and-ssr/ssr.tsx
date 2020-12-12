@@ -33,7 +33,7 @@ export default function SSR({ posts }: SSRProps) {
 
       <main>
         <h1>Post一覧</h1>
-        <div>{posts.map(PostItem)}</div>
+        <div>{posts.map((post) => PostItem(post))}</div>
       </main>
     </div>
   );
