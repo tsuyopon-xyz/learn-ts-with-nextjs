@@ -1,7 +1,7 @@
 import Head from 'next/head';
-import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { useEffect, useState } from 'react';
 
-// csr.tsxと共通するコードが複数あるが
+// ssr.tsxと共通するコードが複数あるが
 // 解説が1ファイルで完結できるようにあえて
 // 別ファイルに用意しない形で記述している
 
@@ -11,10 +11,6 @@ type Post = {
   title: string;
   body: string;
 };
-
-interface SSRProps {
-  posts: Post[];
-}
 
 const PostItem: React.FC<Post> = ({ id, title, userId, body }) => {
   return (
@@ -27,7 +23,19 @@ const PostItem: React.FC<Post> = ({ id, title, userId, body }) => {
   );
 };
 
-export default function SSR({ posts }: SSRProps) {
+export default function CSR() {
+  const [posts, setPosts] = useState<Post[]>([]);
+
+  useEffect(() => {
+    async function fetchPosts() {
+      const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+      const posts = (await res.json()) as Post[];
+      setPosts(posts);
+    }
+
+    fetchPosts();
+  }, []);
+
   return (
     <div>
       <Head>
@@ -42,16 +50,3 @@ export default function SSR({ posts }: SSRProps) {
     </div>
   );
 }
-
-export const getServerSideProps: GetServerSideProps<SSRProps> = async (
-  _context: GetServerSidePropsContext
-) => {
-  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
-  const posts = (await res.json()) as Post[];
-
-  return {
-    props: {
-      posts,
-    },
-  };
-};
