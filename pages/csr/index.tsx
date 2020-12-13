@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
-// ssr.tsxと共通するコードが複数あるが
+// pages/ssr/index.tsxと共通するコードが複数あるが
 // 解説が1ファイルで完結できるようにあえて
 // 別ファイルに用意しない形で記述している
 

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 
-// csr.tsxと共通するコードが複数あるが
+// ../ssg.tsxと共通するコードが複数あるが
 // 解説が1ファイルで完結できるようにあえて
 // 別ファイルに用意しない形で記述している
 
@@ -13,7 +13,7 @@ type Post = {
 };
 
 interface SSRProps {
-  posts: Post[];
+  post: Post;
 }
 
 const PostItem: React.FC<Post> = ({ id, title, userId, body }) => {
@@ -27,31 +27,46 @@ const PostItem: React.FC<Post> = ({ id, title, userId, body }) => {
   );
 };
 
-export default function SSR({ posts }: SSRProps) {
+export default function SSR({ post }: SSRProps) {
+  const { id, userId, title, body } = post;
+
   return (
     <div>
       <Head>
-        <title>SSRの解説用ページ</title>
+        <title>SSRの解説用ページ（Post詳細）</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <h1>Post一覧</h1>
-        <div>{posts.map((post) => PostItem(post))}</div>
+        <h1>Post詳細</h1>
+        <div>
+          <p>Post ID: {id}</p>
+          <p>User ID: {userId}</p>
+          <p>Title: {title}</p>
+          <p>Body: {body}</p>
+        </div>
       </main>
     </div>
   );
 }
 
+type SSRParams = {
+  id: string;
+};
 export const getServerSideProps: GetServerSideProps<SSRProps> = async (
-  _context: GetServerSidePropsContext
+  context: GetServerSidePropsContext
 ) => {
-  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
-  const posts = (await res.json()) as Post[];
+  const params = context.params as SSRParams;
+  const postId = params.id;
+
+  const res = await fetch(
+    `https://jsonplaceholder.typicode.com/posts/${postId}`
+  );
+  const post = (await res.json()) as Post;
 
   return {
     props: {
-      posts,
+      post,
     },
   };
 };
