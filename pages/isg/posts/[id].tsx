@@ -49,9 +49,15 @@ export const getStaticPaths: GetStaticPaths<ISGParams> = async (
   _context: GetStaticPathsContext
 ) => {
   return {
-    // ISGの動作確認用に
-    // "next build"でHTMLファイルを生成しないようにするため
-    // 何もPathを設定しないようにしている
+    /**
+     * "next build"でHTMLファイルを生成しないようにするため
+     * 「id: 1」のPost情報のHTMLだけSSGを行うようにしている。
+     * （それ以外の「id:2 ~ id:100」はISGでHTMLを生成）
+     *
+     * 「id:1~id:100」の詳細は以下を参照
+     * https://jsonplaceholder.typicode.com/posts
+     */
+
     paths: [{ params: { id: '1' } }],
 
     /***
