@@ -17,17 +17,6 @@ interface SSRProps {
   posts: Post[];
 }
 
-const PostItem: React.FC<Post> = ({ id, title, userId, body }) => {
-  return (
-    <div key={id}>
-      <h2>
-        {title}(written by {userId})
-      </h2>
-      <p>{body}</p>
-    </div>
-  );
-};
-
 export default function SSR({ posts }: SSRProps) {
   return (
     <div>
@@ -37,7 +26,7 @@ export default function SSR({ posts }: SSRProps) {
       </Head>
 
       <main>
-        <h1>Post一覧</h1>
+        <h1>Post一覧(SSR)</h1>
         <ul>
           {posts.map(({ id, title }) => {
             const postDetailPath = `/ssr/posts/${id}`;

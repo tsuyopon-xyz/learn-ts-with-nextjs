@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 
-// ../ssg.tsxと共通するコードが複数あるが
+// pages/csr/posts/[id].tsxと共通するコードが複数あるが
 // 解説が1ファイルで完結できるようにあえて
 // 別ファイルに用意しない形で記述している
 
@@ -16,18 +16,7 @@ interface SSRProps {
   post: Post;
 }
 
-const PostItem: React.FC<Post> = ({ id, title, userId, body }) => {
-  return (
-    <div key={id}>
-      <h2>
-        {title}(written by {userId})
-      </h2>
-      <p>{body}</p>
-    </div>
-  );
-};
-
-export default function SSR({ post }: SSRProps) {
+export default function SSRPostsId({ post }: SSRProps) {
   const { id, userId, title, body } = post;
 
   return (
@@ -38,7 +27,7 @@ export default function SSR({ post }: SSRProps) {
       </Head>
 
       <main>
-        <h1>Post詳細</h1>
+        <h1>Post詳細(SSR)</h1>
         <div>
           <p>Post ID: {id}</p>
           <p>User ID: {userId}</p>

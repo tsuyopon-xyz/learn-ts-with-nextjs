@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 // pages/ssr/index.tsxと共通するコードが複数あるが
 // 解説が1ファイルで完結できるようにあえて
@@ -10,17 +11,6 @@ type Post = {
   id: number;
   title: string;
   body: string;
-};
-
-const PostItem: React.FC<Post> = ({ id, title, userId, body }) => {
-  return (
-    <div key={id}>
-      <h2>
-        {title}(written by {userId})
-      </h2>
-      <p>{body}</p>
-    </div>
-  );
 };
 
 export default function CSR() {
@@ -39,13 +29,23 @@ export default function CSR() {
   return (
     <div>
       <Head>
-        <title>SSRの解説用ページ</title>
+        <title>CSRの解説用ページ</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <h1>Post一覧</h1>
-        <div>{posts.map((post) => PostItem(post))}</div>
+        <h1>Post一覧(CSR)</h1>
+        <ul>
+          {posts.map(({ id, title }) => {
+            const postDetailPath = `/csr/posts/${id}`;
+
+            return (
+              <li key={id}>
+                <Link href={postDetailPath}>{title}</Link>
+              </li>
+            );
+          })}
+        </ul>
       </main>
     </div>
   );
