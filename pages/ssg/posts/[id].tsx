@@ -32,7 +32,7 @@ const PostItem: React.FC<Post> = ({ id, title, userId, body }) => {
   );
 };
 
-export default function SSR({ post }: SSGProps) {
+export default function SSGPostsId({ post }: SSGProps) {
   const { id, userId, title, body } = post;
 
   return (
