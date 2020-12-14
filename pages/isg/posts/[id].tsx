@@ -101,8 +101,17 @@ export const getStaticPaths: GetStaticPaths<ISGParams> = async (
      * 初回アクセスでISGを行いHTMLの生成、
      * 2回目以降のアクセスでは生成済みのHTMLを返すという動作は
      * 「fallback: true」と同じ
+     *
+     * デベロッパーツールでJavaScriptのdebugger設定で
+     * disableにすると、ISGが実行がされるときの動作の違いが確認しやすい。
+     * →https://developers.google.com/web/tools/chrome-devtools/javascript/disable
+     *
+     * - fallback: true(CSR)
+     *     - → クライアント側でJSが実行できないため、CSRが行われず中途半端な状態のページが表示される(APIの実行もされない)
+     * - fallback: 'blocking'(SSR)
+     *     - → クライアント側でJSが実行できないが、SSRの動きとなり完全な形でページが表示される
      */
-    fallback: true, // or 'blocking'
+    fallback: true, // true or 'blocking' for ISG
   };
 };
 

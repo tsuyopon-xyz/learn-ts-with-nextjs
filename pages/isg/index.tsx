@@ -35,7 +35,15 @@ export default function ISG({ posts }: ISGProps) {
           {posts.map((post) => {
             return (
               <li key={post.id}>
-                <Link href={`/isg/posts/${post.id}`}>{post.title}</Link>
+                <Link
+                  // https://nextjs.org/docs/api-reference/next/link
+                  // "next/link" はデフォルトでリンク先のデータの取得(prefetch)やISGを実行させてしまう
+                  // ISGの動作確認がわかりやすいように、ここではprefetchの機能をオフにしている
+                  prefetch={false}
+                  href={`/isg/posts/${post.id}`}
+                >
+                  {post.title}
+                </Link>
               </li>
             );
           })}
