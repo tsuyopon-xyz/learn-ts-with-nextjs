@@ -20,15 +20,17 @@ export default function CSRPostsId() {
 
   useEffect(() => {
     async function fetchPost() {
-      const res = await fetch(
-        `https://jsonplaceholder.typicode.com/posts/${postId}`
-      );
-      const post = (await res.json()) as Post;
-      setPost(post);
+      if (postId) {
+        const res = await fetch(
+          `https://jsonplaceholder.typicode.com/posts/${postId}`
+        );
+        const post = (await res.json()) as Post;
+        setPost(post);
+      }
     }
 
     fetchPost();
-  }, []);
+  }, [postId]);
 
   if (!post) {
     return <p>読込中...</p>;
