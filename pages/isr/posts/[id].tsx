@@ -22,7 +22,7 @@ interface ISRProps {
   timestamp: number; // ISR確認用のタイムスタンプ
 }
 
-export default function isrPostsId({ post, timestamp }: ISRProps) {
+export default function ISRPostsId({ post, timestamp }: ISRProps) {
   return (
     <div>
       <Head>
