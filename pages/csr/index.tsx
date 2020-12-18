@@ -1,25 +1,15 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
-
-// pages/ssr/index.tsxと共通するコードが複数あるが
-// 解説が1ファイルで完結できるようにあえて
-// 別ファイルに用意しない形で記述している
-
-type Post = {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-};
+import PostList from 'src/components/posts/PostList';
+import PostType from 'src/types/Post';
 
 export default function CSR() {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<PostType[]>([]);
 
   useEffect(() => {
     async function fetchPosts() {
       const res = await fetch('https://jsonplaceholder.typicode.com/posts');
-      const posts = (await res.json()) as Post[];
+      const posts = (await res.json()) as PostType[];
       setPosts(posts);
     }
 
@@ -35,17 +25,7 @@ export default function CSR() {
 
       <main>
         <h1>Post一覧(CSR)</h1>
-        <ul>
-          {posts.map(({ id, title }) => {
-            const postDetailPath = `/csr/posts/${id}`;
-
-            return (
-              <li key={id}>
-                <Link href={postDetailPath}>{title}</Link>
-              </li>
-            );
-          })}
-        </ul>
+        <PostList posts={posts} baseUrl={'/csr'} />
       </main>
     </div>
   );
