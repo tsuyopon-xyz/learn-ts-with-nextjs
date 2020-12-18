@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import AppBar from '@material-ui/core/AppBar';
@@ -33,6 +34,17 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('sm')]: {
         display: 'none',
       },
+    },
+    appBarMenuItem: {
+      marginLeft: theme.spacing(2),
+      [theme.breakpoints.down('xs')]: {
+        display: 'none',
+      },
+    },
+    appBarMenuItemLink: {
+      color: 'white',
+      textDecoration: 'underline',
+      cursor: 'pointer',
     },
     drawer: {
       [theme.breakpoints.up('sm')]: {
@@ -140,8 +152,17 @@ export default function NavBar(props: Props) {
               router.push('/');
             }}
           >
-            Next.js &amp; TypeScript体験シリーズ
+            Web白熱教室
           </Typography>
+          {MENU_LIST.map(({ title, icon, href }) => {
+            return (
+              <Typography className={classes.appBarMenuItem} key={title} noWrap>
+                <Link href={href}>
+                  <span className={classes.appBarMenuItemLink}>{title}</span>
+                </Link>
+              </Typography>
+            );
+          })}
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
