@@ -1,24 +1,9 @@
 import Head from 'next/head';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
-import Link from 'next/link';
-
-// pages/ssg/index.tsxのコードと共通している部分が多いが、
-// 解説が1ファイルで完結できるようにあえて
-// 別ファイルに用意しない形で記述している。
-//
-// また、
-// この中身のファイルは実質pages/sssg/index.tsxと同じで、
-// ISG解説用のサンプルコードのメインはpages/isg/posts/[id].tsxとなる
-
-type Post = {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-};
-
+import PostList from 'src/components/posts/PostList';
+import PostType from 'src/types/Post';
 interface ISGProps {
-  posts: Post[];
+  posts: PostType[];
 }
 
 export default function ISG({ posts }: ISGProps) {
@@ -31,23 +16,7 @@ export default function ISG({ posts }: ISGProps) {
 
       <main>
         <h1>Postのリンク一覧(ISG)</h1>
-        <ul>
-          {posts.map((post) => {
-            return (
-              <li key={post.id}>
-                <Link
-                  // https://nextjs.org/docs/api-reference/next/link
-                  // "next/link" はデフォルトでリンク先のデータの取得(prefetch)やISGを実行させてしまう
-                  // ISGの動作確認がわかりやすいように、ここではprefetchの機能をオフにしている
-                  prefetch={false}
-                  href={`/isg/posts/${post.id}`}
-                >
-                  {post.title}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        <PostList posts={posts} baseUrl={'/isg'} />
       </main>
     </div>
   );
@@ -57,7 +26,7 @@ export const getStaticProps: GetStaticProps<ISGProps> = async (
   _context: GetStaticPropsContext
 ) => {
   const res = await fetch('https://jsonplaceholder.typicode.com/posts');
-  const posts = (await res.json()) as Post[];
+  const posts = (await res.json()) as PostType[];
 
   return {
     props: {

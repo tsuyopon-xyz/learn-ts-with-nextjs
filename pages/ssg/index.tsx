@@ -1,20 +1,9 @@
 import Head from 'next/head';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
-import Link from 'next/link';
-
-// ./posts/[id].tsxと共通するコードが複数あるが
-// 解説が1ファイルで完結できるようにあえて
-// 別ファイルに用意しない形で記述している
-
-type Post = {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-};
-
+import PostList from 'src/components/posts/PostList';
+import PostType from 'src/types/Post';
 interface SSGProps {
-  posts: Post[];
+  posts: PostType[];
 }
 
 export default function SSG({ posts }: SSGProps) {
@@ -27,15 +16,7 @@ export default function SSG({ posts }: SSGProps) {
 
       <main>
         <h1>Postのリンク一覧</h1>
-        <ul>
-          {posts.map((post) => {
-            return (
-              <li key={post.id}>
-                <Link href={`/ssg/posts/${post.id}`}>{post.title}</Link>
-              </li>
-            );
-          })}
-        </ul>
+        <PostList posts={posts} baseUrl={'/ssg'} />
       </main>
     </div>
   );
@@ -45,7 +26,7 @@ export const getStaticProps: GetStaticProps<SSGProps> = async (
   _context: GetStaticPropsContext
 ) => {
   const res = await fetch('https://jsonplaceholder.typicode.com/posts');
-  const posts = (await res.json()) as Post[];
+  const posts = (await res.json()) as PostType[];
 
   return {
     props: {

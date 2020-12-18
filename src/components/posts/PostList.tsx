@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export type Props = {
   posts: PostType[];
-  baseUrl: '/csr' | '/ssr' | '/isg' | '/isr';
+  baseUrl: '/csr' | '/ssr' | '/ssg' | '/isg' | '/isr';
 };
 
 const PostList: React.FC<Props> = ({ posts, baseUrl }) => {
