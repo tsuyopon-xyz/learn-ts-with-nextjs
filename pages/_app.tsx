@@ -5,8 +5,9 @@ import type { AppProps /*, AppContext */ } from 'next/app';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Theme from 'src/components/Theme';
-import AppBar from 'src/components/layouts/AppBar';
+import NavBar from 'src/components/layouts/NavBar';
 
+// https://nextjs.org/docs/advanced-features/custom-app
 function MyApp(props: AppProps) {
   const { Component, pageProps } = props;
 
@@ -32,6 +33,7 @@ function MyApp(props: AppProps) {
       <ThemeProvider theme={Theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
+        <NavBar />
         <Component {...pageProps} />
       </ThemeProvider>
     </>
