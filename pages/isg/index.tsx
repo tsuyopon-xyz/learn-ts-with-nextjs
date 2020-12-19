@@ -30,7 +30,7 @@ export default function ISG({ posts }: ISGProps) {
       </Head>
 
       <main>
-        <h1>Postのリンク一覧</h1>
+        <h1>Postのリンク一覧(ISG)</h1>
         <ul>
           {posts.map((post) => {
             return (

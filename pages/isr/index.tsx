@@ -30,7 +30,7 @@ export default function ISR({ posts }: ISRProps) {
       </Head>
 
       <main>
-        <h1>Postのリンク一覧</h1>
+        <h1>Postのリンク一覧(ISR)</h1>
         <ul>
           {posts.map((post) => {
             return (
