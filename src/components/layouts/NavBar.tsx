@@ -161,7 +161,7 @@ export default function NavBar(props: Props) {
 
           {MENU_LIST.map(({ title, href }) => {
             return (
-              <Typography noWrap className={classes.appBarMenuItem}>
+              <Typography noWrap className={classes.appBarMenuItem} key={title}>
                 <Link href={href}>
                   <span className={classes.appBarMenuItemLink}>{title}</span>
                 </Link>
