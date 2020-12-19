@@ -1,17 +1,12 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import PostList from 'src/components/posts/PostList';
+import Post from 'src/types/Post';
 
 // pages/ssr/index.tsxと共通するコードが複数あるが
 // 解説が1ファイルで完結できるようにあえて
 // 別ファイルに用意しない形で記述している
-
-type Post = {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-};
 
 export default function CSR() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -35,7 +30,8 @@ export default function CSR() {
 
       <main>
         <h1>Post一覧(CSR)</h1>
-        <ul>
+        <PostList posts={posts} baseUrl={'/csr'} />
+        {/* <ul>
           {posts.map(({ id, title }) => {
             const postDetailPath = `/csr/posts/${id}`;
 
@@ -45,7 +41,7 @@ export default function CSR() {
               </li>
             );
           })}
-        </ul>
+        </ul> */}
       </main>
     </div>
   );

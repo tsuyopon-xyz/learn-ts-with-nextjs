@@ -2,6 +2,7 @@
 import type { AppProps /*, AppContext */ } from 'next/app';
 import React from 'react';
 import Head from 'next/head';
+import Container from '@material-ui/core/Container';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from 'src/components/Theme';
@@ -29,7 +30,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <NavBar />
-        <Component {...pageProps} />
+        <Container maxWidth="lg">
+          <Component {...pageProps} />
+        </Container>
       </ThemeProvider>
     </React.Fragment>
   );
