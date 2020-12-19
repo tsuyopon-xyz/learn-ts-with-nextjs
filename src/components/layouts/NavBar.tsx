@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -32,6 +33,17 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
+    },
+    appBarMenuItem: {
+      marginLeft: theme.spacing(2),
+      [theme.breakpoints.down('xs')]: {
+        display: 'none',
+      },
+    },
+    appBarMenuItemLink: {
+      color: 'white',
+      textDecoration: 'underline',
+      cursor: 'pointer',
     },
     drawer: {
       [theme.breakpoints.up('sm')]: {
@@ -146,6 +158,16 @@ export default function NavBar(props: Props) {
           <Typography variant="h6" noWrap>
             Web白熱教室
           </Typography>
+
+          {MENU_LIST.map(({ title, href }) => {
+            return (
+              <Typography noWrap className={classes.appBarMenuItem}>
+                <Link href={href}>
+                  <span className={classes.appBarMenuItemLink}>{title}</span>
+                </Link>
+              </Typography>
+            );
+          })}
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
