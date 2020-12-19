@@ -1,30 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Next.js に Material-UI を組み込んでデザインを整える
 
-## Getting Started
+### 1. Material-UI を使うための事前準備をする
 
-First, run the development server:
+- 必要なパッケージのインストール
+- 事前準備用ファイルの設定
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+  - `_app.tsx`
+  - `_document.tsx`
+  - `Theme.ts`を作成する
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- `_app.tsx` :
+  - https://nextjs.org/docs/advanced-features/custom-app
+- `_document.tsx` :
+  - https://nextjs.org/docs/advanced-features/custom-document
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+---
 
-## Learn More
+### 2. 画面上部にナビゲーションバーとメニューをセットするその 1(モバイルサイズ用の対応)
 
-To learn more about Next.js, take a look at the following resources:
+モバイルサイズのときは、ナビゲーションバーのメニューボタンを押すと左からメニューが出てくるようにする
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+https://material-ui.com/components/drawers/
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### 3. 画面上部にナビゲーションバーとメニューをセットするその 2(タブレット・PC サイズ用の対応)
 
-## Deploy on Vercel
+タブレットやパソコンサイズのときは、メニューボタンを非表示にしてナビゲーションバー内にメニューをセットする
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 4. Post 一覧ページのデザインを整える
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- １件１件の Post データをカード UI で表現
+- カード UI を Grid 形式で一覧表示させる
+- 画面サイズに応じて 1 列に表示するカードの数を変更する(レスポンシブ対応)
+  - モバイルサイズのとき → １行１列
+  - タブレットサイズのとき → １行２列
+  - PC サイズ(小さめ)のとき → １行３列
+  - PC サイズ(大きめ)のとき → １行４列
