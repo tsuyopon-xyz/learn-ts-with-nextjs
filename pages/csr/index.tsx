@@ -31,17 +31,6 @@ export default function CSR() {
       <main>
         <h1>Post一覧(CSR)</h1>
         <PostList posts={posts} baseUrl={'/csr'} />
-        {/* <ul>
-          {posts.map(({ id, title }) => {
-            const postDetailPath = `/csr/posts/${id}`;
-
-            return (
-              <li key={id}>
-                <Link href={postDetailPath}>{title}</Link>
-              </li>
-            );
-          })}
-        </ul> */}
       </main>
     </div>
   );
